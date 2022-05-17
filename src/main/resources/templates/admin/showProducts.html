@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <div class="custom" th:if="${param.success}">
+                <font color="green"><label>Информация сохранена успешно.</label></font> <a th:href="@{/product/show}">×</a>
+            </div>
+
+            <div class="custom" th:if="${param.deleted}">
+                <font color="green"><label>Товар удален успешно.</label></font> <a th:href="@{/product/show}">×</a>
+            </div>
+        </div>
+
+        <div class="shift">
+            <table>
+                <tr>
+                    <th>Номер</th>
+                    <th>Картинка</th>
+<!--                    <th>Код</th>-->
+                    <th>Год</th>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Стоимость</th>
+                    <th>Количество</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td><img th:if="${product.image != null}" th:src="@{'data:image/jpeg;base64,' + ${product.getBase64Image()}}"/></td>
+<!--                    <td th:text="${product.code}"></td>-->
+                    <td th:text="${product.year}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.price + ' byn'}"></td>
+                    <td th:text="${product.stock}"></td>
+                    <td><a th:href="@{'/product/edit/' + ${product.id}}">Редактировать</a>
+                        <a th:href="@{'/product/delete/' + ${product.id}}">Удалить</a></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <div class="info">
+        <div><a th:href="@{/product/add}"><button>Создать товар</button></a></div>
+        <div><a th:href="@{/admin}"><button>На главную администратора</button></a></div>
+    </div>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<header class="header">
+    <div>
+        <label>Маркет</label>
+        <a th:href="@{/home}">На главную</a>
+    </div>
+    <div>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">Войти</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/account/info}">Профиль</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/account/order/history}">Заказы</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/cart}">Корзина</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Выйти</a>
+    </div>
+</header>

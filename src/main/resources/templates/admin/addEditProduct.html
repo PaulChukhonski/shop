@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <form class="form" th:action="@{/product/save}" th:object="${product}" method="post" enctype="multipart/form-data">
+            <div><input hidden type="number" id="id" th:field="*{id}"/></div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('category.id')}" th:errors="*{category.id}"></p></font>
+                <select class="form_input" th:field="*{category.id}">
+                    <option value="" >Выберите категорию</option>
+                    <option th:each="categoryInfo : ${categories}" th:value="${categoryInfo.id}" th:utext="${categoryInfo.name}"></option>
+                </select>
+            </div>
+
+<!--            <div><input required type="text" placeholder="Код" id="code" th:field="*{code}"/></div>-->
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></p></font>
+                <input class="form_input" type="number" th:min="2010" th:max="2022" placeholder="Год" id="year" th:field="*{year}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></font>
+                <input class="form_input" type="text" placeholder="Название" id="name" th:field="*{name}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p></font>
+                <input class="form_input" type="text" placeholder="Описание" id="description" th:field="*{description}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p></font>
+                <input class="form_input" type="number" placeholder="Стоимость" id="price" th:field="*{price}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p></font>
+                <input class="form_input" type="number" placeholder="Количество" id="stock" th:field="*{stock}"/>
+            </div>
+
+            <div class="form_group" th:if="${param.image}">
+                <font color="red">Картинка обязательна.</font>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></p></font>
+                <input class="image_form_input" type="file" placeholder="Картинка" id="multipartFile" th:field="*{multipartFile}"/>
+                <img th:if="${product.image != null}" th:src="@{'data:image/jpeg;base64,' + ${product.getBase64Image()}}" style="width:200px;height:200px;"/>
+            </div>
+
+            <div class="form_group"><button>Сохранить</button></div>
+        </form>
+    </main>
+
+    <div class="info">
+        <div><a th:href="@{/product/show}"><button>Назад</button></a></div>
+        <div><a th:href="@{/admin}"><button>На главную администратора</button></a></div>
+    </div>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

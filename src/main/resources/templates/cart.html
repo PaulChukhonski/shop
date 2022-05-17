@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class = "wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Картинка</th>
+                    <th>Стоимость</th>
+                    <th>Категория</th>
+                    <th>Количество</th>
+                    <th>Общая стоимость</th>
+                    <th>Удалить</th>
+                </tr>
+
+                <tr th:each="cartItem : ${cart.cartItemList}">
+                    <td th:text="${cartItem.product.name}"></td>
+                    <td><img th:if="${cartItem.product.image != null}" th:src="@{'data:image/jpeg;base64,' + ${cartItem.product.getBase64Image()}}"/></td>
+                    <td th:text="${cartItem.product.price + ' byn'}"></td>
+                    <td th:text="${cartItem.product.category.name}"></td>
+                    <td th:text="${cartItem.quantity}"></td>
+<!--                    <td>-->
+<!--                        <form th:action="@{/cart/item/update}" method="post">-->
+<!--                            <input hidden type="number" id="id" name="id" th:value="*{cartItem.product.id}"/>-->
+<!--                            <input class="form_input" type="number" th:min="1" th:max="*{cartItem.product.stock}" id="quantity" name="quantity" th:value="*{cartItem.quantity}"/>-->
+<!--                            <button name="action" value="update">Обновить</button>-->
+<!--                        </form>-->
+<!--                    </td>-->
+                    <td th:text="${cartItem.countSubTotal() + ' byn'}"></td>
+                    <td>
+                        <form th:action="@{/cart/item/update}" method="post">
+                            <input hidden type="number" id="id1" name="id" th:value="*{cartItem.product.id}"/>
+                            <button name="action" value="delete">X</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="info">
+                <div><h3 th:text="${'Общая стоимость: ' + cart.countTotal() + ' byn'}"></h3></div>
+
+                <form class="form" th:action="@{/cart/checkout}" th:object="${cart}" method="post">
+                    <div class="form_group" th:if="${param.error}">
+                        <font color="red">Нет товаров для покупки.</font>
+                    </div>
+
+                    <div class="form_group">
+                        <input hidden class="form_input" id="id2" th:field="*{id}">
+                    </div>
+
+                    <div class="form_group" th:if="${cart.user.address != null}"><button>Оформить заказ</button></div>
+                </form>
+
+                <div class="form_group" th:if="${cart.user.address == null}"><a th:href="@{/account/info}"><button>Заполнить адрес доставки</button></a></div>
+
+                <div><a th:href="@{/home}"><button>Продолжить покупки</button></a></div>
+            </div>
+        </div>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <div class="custom" th:if="${param.success}">
+                <font color="green"><label>Информация сохранена успешно.</label></font> <a th:href="@{/category/show}">×</a>
+            </div>
+
+            <div class="custom" th:if="${param.deleted}">
+                <font color="green"><label>Категория удалена успешно.</label></font> <a th:href="@{/category/show}">×</a>
+            </div>
+        </div>
+
+        <div class="shift">
+            <table>
+                <tr>
+                    <th>Номер</th>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.id}">Номер</td>
+                    <td th:text="${category.name}">Название</td>
+                    <td><a th:href="@{'/category/edit/' + ${category.id}}">Редактировать</a>
+                        <a th:href="@{'/category/delete/' + ${category.id}}">Удалить</a></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <div class="info">
+        <div><a th:href="@{/category/add}"><button>Создать категорию</button></a></div>
+        <div><a th:href="@{/admin}"><button>На главную администратора</button></a></div>
+    </div>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

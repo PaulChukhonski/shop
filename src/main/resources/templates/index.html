@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Market.com</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/product.css}">
+</head>
+
+<body>
+<div class = "wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <ul class="menu">
+            <li><a th:href="@{/home}">Все товары</a></li>
+            <li th:each="category : ${categories}"><a th:href="@{'/home?categoryId=' + ${category.id}}" th:text="${category.name}"></a></li>
+        </ul>
+
+        <div class="list">
+            <div class="item" th:each="product : ${products}">
+                <div th:text="${product.name}"></div>
+                <div><img th:if="${product.image != null}" th:src="@{'data:image/jpeg;base64,' + ${product.getBase64Image()}}"/></div>
+                <div th:text="${'Стоимость: ' + product.price + ' byn'}"></div>
+                <div th:if="${product.stock == 0}" th:text="${'Товар закончился на складе.'}"></div>
+                <div sec:authorize="isAuthenticated()" th:if="${product.stock > 0}">
+                    <form th:action="@{/cart/item/add}" method="post">
+                        <div><input hidden type="number" id="id" name="id" th:value="*{product.id}"/></div>
+                        <div><input class="form_input" type="number" th:value="1" th:min="1" th:max="*{product.stock}" placeholder="Количество" id="quantity" name="quantity"/></div>
+
+                        <div><button>В корзину</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

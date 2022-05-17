@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <form class="form" th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p></font>
+                <input class="form_input" type="text" placeholder="Имя" id="firstName" th:field="*{firstName}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p></font>
+                <input class="form_input" type="text" placeholder="Фамилия" id="lastName" th:field="*{lastName}"/>
+            </div>
+
+            <div class="form_group" th:if="${error != null && error == 'email'}">
+                <font color="red">Пользователь с такой почтой уже зарегистрирован.</font>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p></font>
+                <input class="form_input" type="text" placeholder="Почта" id="email" th:field="*{email}"/>
+            </div>
+
+<!--            <div class="form_group" th:if="${error != null && error == 'passwordEmpty'}">-->
+<!--                <font color="red">Пожалуйста, введите пароль.</font>-->
+<!--            </div>-->
+
+<!--            <div class="form_group" th:if="${error != null && error == 'passwordLength'}">-->
+<!--                <font color="red">Пароль должен содержать минимум 6 символов.</font>-->
+<!--            </div>-->
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p></font>
+                <input class="form_input" type="password" placeholder="Пароль" id="password" th:field="*{password}"/>
+            </div>
+
+            <div class="form_group"><button>Зарегистрироваться</button></div>
+
+            <p sec:authorize="isAnonymous()"><label class="form_label">Уже зарегистрированы?</label> <a th:href="@{/login}">Войти</a></p>
+        </form>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

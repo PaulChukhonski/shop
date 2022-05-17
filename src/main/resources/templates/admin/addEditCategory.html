@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <form class="form" th:action="@{/category/save}" th:object="${category}" method="post">
+            <div><input hidden type="number" id="id" th:field="*{id}"/></div>
+
+            <div class="form_group" th:if="${error != null && error == 'name'}">
+                <font color="red">Категория с таким названием уже существует.</font>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></font>
+                <input class="form_input" type="text" placeholder="Название" id="name" th:field="*{name}"/>
+            </div>
+
+            <div class="form_group"><button>Сохранить</button></div>
+        </form>
+    </main>
+
+    <div class="info">
+        <div><a th:href="@{/category/show}"><button>Назад</button></a></div>
+        <div><a th:href="@{/admin}"><button>На главную администратора</button></a></div>
+    </div>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

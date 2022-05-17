@@ -1,0 +1,24 @@
+.main {
+    display: flex;
+    justify-content: center;
+    margin: 3% 5% 3% 5%;
+}
+
+.menu li {
+    list-style: none;
+    padding: 10px;
+    background: black;
+    margin-bottom: 3%;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.menu a:hover {
+    background: grey;
+}

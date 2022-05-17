@@ -1,0 +1,146 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: white;
+    background: #133CAC;
+    outline: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #FFD600;
+}
+
+button:active {
+    background: #FF7800;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: black;
+    padding: 20px 10px;
+    font-family: sans-serif;
+}
+
+.header label {
+    color: white;
+    font-size: 25px;
+    padding-right: 10px;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.header a:hover {
+    background: grey;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: black;
+    padding: 20px 10px;
+    font-family: sans-serif;
+}
+
+.footer label {
+    color: white;
+    font-size: 25px;
+    padding-right: 10px;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.footer a:hover {
+    background: grey;
+}
+
+.dropbtn {
+    width: 218px;
+    margin-top: 15px;
+    height: 58px;
+    border-radius: 15px;
+    border: 3px solid #4f81bd;
+    outline:none;
+    cursor: pointer;
+    text-align: center;
+    color: #4f81bd;
+    font-size: 22px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.info div {
+    margin-top: 2%;
+}
+
+.shift {
+    margin-top: 3%;
+}
+
+.form_input {
+    width: 100%;
+    padding: 0 0 10px 0;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    background: transparent;
+    outline: none;
+    transition: 0.3s;
+}
+
+.image_form_input {
+    width: 100%;
+    padding: 0 0 10px 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    transition: 0.3s;
+}

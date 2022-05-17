@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <div class="custom" th:if="${param.canceled}">
+                <font color="green"><label>Заказ отменен успешно.</label></font> <a th:href="@{/account/order/history}">×</a>
+            </div>
+        </div>
+
+        <div class="shift">
+            <table>
+                <tr>
+                    <th>Номер</th>
+                    <th>Статус</th>
+                    <th>Дата создания</th>
+                    <th>Дата доставки</th>
+                    <th>Стоимость</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.orderStatus}"></td>
+                    <td th:text="${order.createDate}"></td>
+                    <td th:text="${order.deliveryDate}"></td>
+                    <td th:text="${order.totalPrice + ' byn'}"></td>
+                    <td style="display: flex; flex-direction: row">
+                        <form th:if="${order.orderStatus.name == 'PENDING'}" th:action="@{'/account/order/cancel/' + ${order.id}}" method="get">
+                            <button>Отменить</button>
+                        </form>
+                        <form style="margin-left: 3%" th:action="@{'/account/order/' + ${order.id}}" method="get">
+                            <button>Товары</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

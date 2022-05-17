@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <form class="form" th:action="@{/login}" method="post">
+            <div class="form_group" th:if="${param.error}">
+                <font color="red">Некорректная почта или пароль.</font>
+            </div>
+
+            <div class="form_group">
+                <input class="form_input" type="text" placeholder="Почта" id="username" name="username">
+            </div>
+
+            <div class="form_group">
+                <input class="form_input" type="password" placeholder="Пароль" id="password" name="password">
+            </div>
+
+            <div class="form_group"><button>Войти</button></div>
+
+            <p sec:authorize="isAnonymous()"><label class="form_label">Еще не зарегистрированы?</label> <a th:href="@{/login}">Регистрация</a></p>
+        </form>
+
+<!--        &lt;!&ndash;    TODO быстрый логин как админ&ndash;&gt;-->
+<!--        <form class="form" th:action="@{/login}" method="post">-->
+<!--            <div class="form_group">-->
+<!--                <input hidden value="admin@gmail.com" required type="text" placeholder="Почта" id="username2" name="username">-->
+<!--            </div>-->
+<!--            <div class="form_group">-->
+<!--                <input hidden value="admin" required type="password" placeholder="Пароль" id="password2" name="password">-->
+<!--            </div>-->
+<!--            <div class="form_group">-->
+<!--                <button>Войти как админ</button>-->
+<!--            </div>-->
+<!--        </form>-->
+
+<!--        &lt;!&ndash;    TODO быстрый логин как пользователь&ndash;&gt;-->
+<!--        <form class="form" th:action="@{/login}" method="post">-->
+<!--            <div class="form_group">-->
+<!--                <input hidden value="test@gmail" required type="text" placeholder="Почта" id="username3" name="username">-->
+<!--            </div>-->
+<!--            <div class="form_group">-->
+<!--                <input hidden value="tester" required type="password" placeholder="Пароль" id="password3" name="password">-->
+<!--            </div>-->
+<!--            <div class="form_group">-->
+<!--                <button>Войти как юзер</button>-->
+<!--            </div>-->
+<!--        </form>-->
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <div class="info">
+                <div th:text="${'Номер: ' + order.id}"></div>
+                <div th:text="${'Статус: ' + order.orderStatus}"></div>
+                <div th:text="${'Дата создания: ' + order.createDate}"></div>
+                <div th:text="${'Дата доставки: ' + order.deliveryDate}"></div>
+                <div th:text="${'Адрес доставки: ' + order.user.address.getFullAddress()}"></div>
+                <div th:text="${'Стоимость: ' + order.totalPrice + ' byn'}"></div>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Картинка</th>
+                    <th>Количество</th>
+                    <th>Стоимость</th>
+                    <th>Общая стоимость</th>
+                </tr>
+                <tr th:each="orderItem : ${order.orderItemList}">
+                    <td th:text="${orderItem.product.name}"></td>
+                    <td><img th:if="${orderItem.product.image != null}" th:src="@{'data:image/jpeg;base64,' + ${orderItem.product.getBase64Image()}}"/></td>
+                    <td th:text="${orderItem.quantity}"></td>
+                    <td th:text="${orderItem.product.price + ' byn'}"></td>
+                    <td th:text="${orderItem.countSubTotal() + ' byn'}"></td>
+                </tr>
+            </table>
+
+            <div class="info">
+                <div><a th:href="@{/account/order/history}"><button>К заказам</button></a></div>
+            </div>
+        </div>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

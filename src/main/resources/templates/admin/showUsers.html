@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/table.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <div class="shift">
+            <div class="custom" th:if="${param.success}">
+                <font color="green"><label>Информация сохранена успешно.</label></font> <a th:href="@{/user/show}">×</a>
+            </div>
+        </div>
+
+        <div class="shift">
+            <table>
+                <tr>
+                    <th>Номер</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчество</th>
+                    <th>Телефон</th>
+                    <th>Почта</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}">Номер</td>
+                    <td th:text="${user.firstName}">Имя</td>
+                    <td th:text="${user.lastName}">Фамилия</td>
+                    <td th:text="${user.middleName}">Отчество</td>
+                    <td th:text="${user.phone}">Телефон</td>
+                    <td th:text="${user.email}">Почта</td>
+                    <td><a th:href="@{'/user/edit/' + ${user.id}}">Редактировать</a></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <div class="info">
+        <div><a th:href="@{/user/add}"><button>Создать пользователя</button></a></div>
+        <div><a th:href="@{/admin}"><button>На главную администратора</button></a></div>
+    </div>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>

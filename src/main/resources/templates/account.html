@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+</head>
+<body>
+<div class = "wrapper">
+    <div th:include="fragments/header"></div>
+
+    <main class="main">
+        <form class="form" th:action="@{/account/save}" th:object="${user}" method="post">
+            <div class="form_group">
+                <label class="form_label">Личные данные: </label>
+            </div>
+
+            <div><input hidden type="number" id="userId" th:field="*{id}"/></div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p></font>
+                <input class="form_input" type="text" placeholder="Имя" id="firstName" th:field="*{firstName}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p></font>
+                <input class="form_input" type="text" placeholder="Фамилия" id="lastName" th:field="*{lastName}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"></p></font>
+                <input class="form_input" type="text" placeholder="Отчество" id="middleName" th:field="*{middleName}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p></font>
+                <input class="form_input" type="text" placeholder="Телефон" id="phone" th:field="*{phone}"/>
+            </div>
+
+            <div class="form_group" th:if="${error != null && error == 'email'}">
+                <font color="red">Пользователь с такой почтой уже зарегистрирован.</font>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p></font>
+                <input class="form_input" type="text" placeholder="Почта" id="email" th:field="*{email}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p></font>
+                <input class="form_input" type="password" placeholder="Пароль" id="password" th:field="*{password}"/>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Адрес для доставки: </label>
+            </div>
+
+            <div><input hidden type="number" id="addressId" th:field="*{addressId}"/></div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p></font>
+                <input class="form_input" type="text" placeholder="Город" id="city" th:field="*{city}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></p></font>
+                <input class="form_input" type="text" placeholder="Улица" id="street" th:field="*{street}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('building')}" th:errors="*{building}"></p></font>
+                <input class="form_input" type="text" placeholder="Здание" id="building" th:field="*{building}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('room')}" th:errors="*{room}"></p></font>
+                <input class="form_input" type="number" th:min="1" placeholder="Квартира" id="room" th:field="*{room}"/>
+            </div>
+
+            <div class="form_group">
+                <font color="red"><p class="form_group" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}"></p></font>
+                <input class="form_input" type="number" th:min="1" placeholder="Этаж" id="floor" th:field="*{floor}"/>
+            </div>
+
+            <div class="form_group"><button>Сохранить</button></div>
+        </form>
+    </main>
+
+    <div th:include="fragments/footer"></div>
+</div>
+</body>
+</html>
